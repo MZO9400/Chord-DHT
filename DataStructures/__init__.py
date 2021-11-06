@@ -1,3 +1,3 @@
-from Address import Address
-from Database import Database
-from FingerTable import FingerTable
+from DataStructures.Address import Address
+from DataStructures.Database import Database
+from DataStructures.FingerTable import FingerTable
