@@ -21,7 +21,6 @@ def create_hash(message):
 
 def get_ip_port(string_format):
     ip, port = str(string_format).split(":")
-    print(ip, port)
     return ip, int(port)
 
 
