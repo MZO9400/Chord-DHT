@@ -1,6 +1,5 @@
 import threading
 import unittest
-from time import sleep
 
 import Client
 import spawner
@@ -21,7 +20,6 @@ class Tests(unittest.TestCase):
         Client.client("127.0.0.1", '3020', 'insert', ['3', '4'])
         Client.client("127.0.0.1", '3030', 'insert', ['4', '5'])
         Client.client("127.0.0.1", '3000', 'insert', ['5', '6'])
-        sleep(2)  # wait for sync
         self.assertEqual('3', Client.client("127.0.0.1", '3000', 'search', ['2']))
         self.assertEqual('4', Client.client("127.0.0.1", '3000', 'search', ['3']))
 
