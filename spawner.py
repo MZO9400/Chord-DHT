@@ -21,8 +21,8 @@ def join(port, port_of_predecessor):
     node.start()
 
 
-if len(sys.argv) == 3:
-    join(int(sys.argv[1]), int(sys.argv[2]))
-
-if len(sys.argv) == 2:
-    create(int(sys.argv[1]))
+if __name__ == "__main__":
+    if len(sys.argv) == 3:
+        join(int(sys.argv[1]), int(sys.argv[2]))
+    if len(sys.argv) == 2:
+        create(int(sys.argv[1]))
