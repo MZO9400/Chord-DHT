@@ -226,23 +226,13 @@ class Node:
                 self.finger_table.table[0][1] = self.successor
             send_message(self.successor.ip, self.successor.port,
                          "notify|" + str(self.id) + "|" + self.address.__str__())
-            print("===============================================")
-            print("STABILIZING")
-            print("===============================================")
             print("ID: ", self.id)
             if self.successor is not None:
                 print("Successor ID: ", self.successor.id)
             if self.predecessor is not None:
                 print("predecessor ID: ", self.predecessor.id)
-            print("===============================================")
-            print("=============== FINGER TABLE ==================")
             self.finger_table.print()
-            print("===============================================")
-            print("DATA STORE")
-            print("===============================================")
             print(str(self.db.data))
-            print("===============================================")
-            print("+++++++++++++++ END +++++++++++++++++++++++++++")
             time.sleep(10)
 
     def notify(self, node_id, node_ip, node_port):
