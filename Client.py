@@ -3,46 +3,37 @@ import sys
 from constants import *
 
 
-def main():
-    ip = "127.0.0.1"
-    if len(sys.argv) < 3:
-        print("Usage: Client.py <port> <command>")
-        sys.exit()
-    port = int(sys.argv[1])
+def client(ip, port, command, arguments):
+    port = int(port)
 
-    if sys.argv[2] not in ['insert', 'search', 'delete']:
-        print("Usage: Client.py <port> <command>")
-        sys.exit(1)
+    if command == 'insert':
+        if len(arguments) != 2:
+            raise 'insert: wrong number of arguments'
+        command += "|" + arguments[0] + ":" + arguments[1]
 
-    command = sys.argv[2] + "|"
+    elif command == 'search':
+        if len(arguments) != 1:
+            raise 'search: wrong number of arguments'
+        command += "|" + arguments[0]
 
-    if sys.argv[2] == 'insert':
-        if len(sys.argv) < 5:
-            print("Usage: Client.py <port> insert <key> <value>")
-            sys.exit()
-        command += sys.argv[3] + ":" + sys.argv[4]
-
-    elif sys.argv[2] == 'search':
-        if len(sys.argv) < 4:
-            print("Usage: Client.py <port> search <key>")
-            sys.exit()
-        command += sys.argv[3]
-
-    elif sys.argv[2] == 'delete':
-        if len(sys.argv) < 4:
-            print("Usage: Client.py <port> delete <key>")
-            sys.exit()
-        command += sys.argv[3]
+    elif command == 'delete':
+        if len(arguments) != 1:
+            raise 'delete: wrong number of arguments'
+        command += "|" + arguments[0]
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((ip, port))
-    print("REQUEST:  " + command)
     sock.send(command.encode('utf-8'))
     data = sock.recv(1024)
     data = str(data.decode('utf-8'))
-    print("RESPONSE: " + data)
     sock.close()
+    return data
 
 
 if __name__ == '__main__':
-    main()
+    ip = "127.0.0.1"
+    print("REQUEST", sys.argv)
+    port = sys.argv[1]
+    command = sys.argv[2]
+    arguments = sys.argv[3:]
+    print("RESPONSE", client(ip, port, command, arguments))
