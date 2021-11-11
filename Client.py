@@ -1,44 +1,47 @@
-import socket
 import sys
+
+from constants import *
 
 
 def main():
     ip = "127.0.0.1"
-    if len(sys.argv) < 2:
-        print("Usage: Client.py <port>")
+    if len(sys.argv) < 3:
+        print("Usage: Client.py <port> <command>")
         sys.exit()
     port = int(sys.argv[1])
 
-    while True:
-        print("1. TO ENTER")
-        print("2. TO SHOW")
-        print("3. TO DELETE")
-        print("ELSE EXIT")
-        choice = input()
-        message = None
+    if sys.argv[2] not in ['insert', 'search', 'delete']:
+        print("Usage: Client.py <port> <command>")
+        sys.exit(1)
 
-        if choice == '1':
-            key = input("ENTER THE KEY: ")
-            val = input("ENTER THE VALUE: ")
-            message = "insert|" + str(key) + ":" + str(val)
-        elif choice == '2':
-            key = input("ENTER THE KEY: ")
-            message = "search|" + str(key)
-        elif choice == '3':
-            key = input("ENTER THE KEY: ")
-            message = "delete|" + str(key)
-        else:
-            print("Exiting Client")
-            exit(0)
+    command = sys.argv[2] + "|"
 
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.connect((ip, port))
-        print("REQUEST:  " + message)
-        sock.send(message.encode('utf-8'))
-        data = sock.recv(1024)
-        data = str(data.decode('utf-8'))
-        print("RESPONSE: " + data)
-        sock.close()
+    if sys.argv[2] == 'insert':
+        if len(sys.argv) < 5:
+            print("Usage: Client.py <port> insert <key> <value>")
+            sys.exit()
+        command += sys.argv[3] + "|" + sys.argv[4]
+
+    elif sys.argv[2] == 'search':
+        if len(sys.argv) < 4:
+            print("Usage: Client.py <port> search <key>")
+            sys.exit()
+        command += sys.argv[3]
+
+    elif sys.argv[2] == 'delete':
+        if len(sys.argv) < 4:
+            print("Usage: Client.py <port> delete <key>")
+            sys.exit()
+        command += sys.argv[3]
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((ip, port))
+    print("REQUEST:  " + command)
+    sock.send(command.encode('utf-8'))
+    data = sock.recv(1024)
+    data = str(data.decode('utf-8'))
+    print("RESPONSE: " + data)
+    sock.close()
 
 
 if __name__ == '__main__':
