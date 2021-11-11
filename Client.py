@@ -20,7 +20,7 @@ def main():
         if len(sys.argv) < 5:
             print("Usage: Client.py <port> insert <key> <value>")
             sys.exit()
-        command += sys.argv[3] + "|" + sys.argv[4]
+        command += sys.argv[3] + ":" + sys.argv[4]
 
     elif sys.argv[2] == 'search':
         if len(sys.argv) < 4:

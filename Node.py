@@ -50,6 +50,7 @@ class Node:
 
         if operation == "insert":
             data = message.split('|')[1].split(":")
+            print(message, data)
             key = data[0]
             value = data[1]
             result = self.insert_key(key, value)
