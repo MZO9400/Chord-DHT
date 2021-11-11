@@ -31,7 +31,7 @@ def client(ip, port, command, arguments):
 
 
 if __name__ == '__main__':
-    ip = "127.0.0.1"
+    ip = ip
     print("REQUEST", sys.argv)
     port = sys.argv[1]
     command = sys.argv[2]

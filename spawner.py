@@ -1,8 +1,7 @@
 import sys
 
 from Node import Node
-
-ip = "127.0.0.1"
+from constants import ip
 
 
 def create(port):

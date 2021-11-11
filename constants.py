@@ -2,6 +2,7 @@ import hashlib
 import socket
 
 m = 6  # 2^6 = 64
+ip = "localhost"
 
 
 def send_message(ip, port, message):
